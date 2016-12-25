@@ -1,0 +1,69 @@
+# -*- coding: utf-8 -*-
+
+
+from openpyxl import Workbook, load_workbook
+from openpyxl.compat import range
+from cStringIO import StringIO
+import json, xlrd
+from io import BytesIO
+import xlrd, pytz, collections
+from base64 import decodestring
+from collections import defaultdict
+from openpyxl.cell import Cell
+
+def test(filename, header_line):
+    wb = load_workbook(filename)
+    print wb
+    sheet = wb[wb.get_sheet_names()[0]]
+    new_wb = Workbook()
+    new_sheet = new_wb.active
+
+    min_col = sheet.min_column
+    min_row = sheet.min_row
+    max_col = sheet.max_column
+    max_row = sheet.max_row
+
+    header = sheet.get_squared_range(min_col, header_line, max_col, header_line).next()
+    header_matrix = [cell.value for cell in header]
+    header_dict = defaultdict(list)
+    for cell in header:
+        header_dict[cell.value].append(cell.column)
+    print header_dict
+    print sheet.cell(row=1, column=1).value
+    common_header = sorted([value[0] for value in header_dict.values() if len(value)==1])
+    repeated_header = [value for value in header_dict.values() if len(value)>1]
+    print common_header
+    print repeated_header
+    processed_header_list = []
+    for ele in zip(*repeated_header):
+        processed_header_list.append(common_header + sorted(ele))
+
+
+    new_header =  [cell.value for cell in filter(lambda ele: ele.column in processed_header_list[0], sheet[header_line])]
+    for i in range(header_line-1):
+        new_sheet.append([None] * len(new_header))
+    new_sheet.append(new_header)
+    row_num = sheet.max_row
+    for row_index in range(header_line+1, row_num+1):
+        for cols in processed_header_list:
+            new_rows= filter(lambda ele: ele.column in cols, sheet[row_index])
+            new_value = [cell.value for cell in new_rows]
+            new_sheet.append(new_value)
+
+    fp = StringIO()
+    new_wb.save(fp)
+    fp.seek(0)
+    excel_file = fp.read()
+    fp.close()
+    xlrd_obj = xlrd.open_workbook(file_contents=excel_file)
+    xlrd_sheet = xlrd_obj.sheet_by_index(0)
+    print xlrd_sheet
+    excel_cols = xlrd_sheet.row(7)
+    for x in excel_cols:
+        print x.value
+    new_wb.save('new_sample.xlsx')
+test('mytest2.xlsx', 2)
+
+
+
+

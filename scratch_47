@@ -1,0 +1,2 @@
+import math
+print float("%.1f" % (math.ceil(123*100)/10))

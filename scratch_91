@@ -1,0 +1,21 @@
+from interval import Interval, IntervalSet
+r1 = IntervalSet([Interval(1, 1000), Interval(1100, 1200)])
+r2 = IntervalSet([Interval(30, 50), Interval(60, 200), Interval(1150, 1300)])
+
+# for x in r1-r2:
+#     print x.lower_bound
+#     print x.upper_bound
+
+from datetime import datetime
+
+
+worktime_start = datetime(2016,5,8,10,34)
+worktime_end = datetime(2016,5,9,11,45)
+str_worktime_start = worktime_start.strftime("%H:%M:%S")
+str_worktime_end = worktime_end.strftime("%H:%M:%S")
+
+
+# str_time_2_float(self, str_time)
+
+worktime_interval = Interval(str_worktime_start, str_worktime_end)
+print(IntervalSet([worktime_interval]))

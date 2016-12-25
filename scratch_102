@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+
+from xlrd import open_workbook
+from xlutils.copy import copy
+need_transfer_col = [3, 6]
+rb = open_workbook('employee.xlsx')
+# 通过sheet_by_index()获取的sheet没有write()方法
+rs = rb.sheet_by_index(0)
+print rb
+wb = copy(rb)
+print wb
+header_line = 1
+header_index = header_line - 1
+
+n_rows, n_cols = rs.nrows, rs.ncols
+ws = wb.get_sheet(0)
+for col in range(n_cols):
+    for row in range(n_rows):
+        if row > header_index and col in need_transfer_col:
+            str_time = rs.cell_value(row, col)
+            number, digit = str_time.split(':')
+            float_value = float(number) + float(digit)/60
+            ws.write(row, col, float_value)
+
+
+
+wb.save('new_employee.xls')

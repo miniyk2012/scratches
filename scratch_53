@@ -1,0 +1,5 @@
+from datetime import datetime
+
+print  datetime.strptime('201205', '%Y-%m')
+
+# self.aeval("""datetime.strptime('20120504', '%Y-%m')""")

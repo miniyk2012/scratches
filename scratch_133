@@ -1,0 +1,8 @@
+x = 10
+
+def func():
+    y = 5
+    print locals()
+    print globals()['x']
+
+func()

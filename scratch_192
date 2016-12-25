@@ -1,0 +1,20 @@
+from itertools import groupby
+# z = groupby([1,2,3,4])
+# print list(z)
+
+overtime_records = [{'overtime_type': (1, u'\u5de5\u4f5c\u65e5\u52a0\u73ed'), 'compensation_way': u'rest', 'employee_id': (11, u'ER00018 / \u51af\u78ca'), 'id': 70, 'active_time': 2.0}, {'overtime_type': (1, u'\u5de5\u4f5c\u65e5\u52a0\u73ed'), 'compensation_way': u'rest', 'employee_id': (53, u'ER00057 / \u6768\u607a'), 'id': 117, 'active_time': 2.0}]
+overtime_group = groupby(overtime_records, lambda x: x['employee_id'][0])
+for employee_id, records in overtime_group:
+    print employee_id
+    # records = list(records)
+    # print records
+    rest_hours = sum(record['active_time'] for record in records if record['compensation_way'] == 'rest')
+    workdays_hours = sum(record['active_time'] for record in records if record['compensation_way'] != 'rest')
+    print employee_id, rest_hours
+    print employee_id, workdays_hours
+    print
+
+# for employee_id, records in overtime_group:
+#     for record in records:
+#         print record
+

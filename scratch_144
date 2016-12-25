@@ -1,0 +1,4 @@
+from datetime import datetime
+import datetime as _datetime
+dt = datetime.strptime('2014-09-12', "%Y-%m-%d") + _datetime.timedelta(-1)
+print dt.strftime("%Y-%m-%d")

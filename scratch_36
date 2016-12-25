@@ -1,0 +1,4 @@
+data_matrix = [[1,2,], [3,4,]]
+inverse = zip(*data_matrix)
+inverse = zip([1,2], [3,4], [5,6])
+print(inverse)

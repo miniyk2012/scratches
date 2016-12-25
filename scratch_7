@@ -1,0 +1,31 @@
+from enum import Enum, IntEnum, unique
+
+try:
+    @unique
+    class Color(Enum):
+        R = 0
+        G = 1
+        B = 2
+except ValueError as e:
+    print(e)
+
+red = Color(0)
+green = Color(1)
+blue = Color(2)
+print(red, green, blue)
+
+print(red is Color.R)
+print(red == Color.R)
+print(red is blue)
+print(green != Color.B)
+print(red == 0) # 不等于任何非本枚举类的值
+
+print(red.B)
+print(red.B.G.R)
+
+print(red.name, ':', red.value)
+
+class Attr(Enum):
+    name  = 'NAME'
+    value = 'VALUE'
+print(Attr.name.value, Attr.value.name)

@@ -1,0 +1,7 @@
+
+z = [(x,y) for x in range(3) for y in range(x)]
+print z
+a = [1,2,3]
+b = a.pop(2)
+a.insert(0, b)
+print(a)

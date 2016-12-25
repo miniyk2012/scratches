@@ -1,0 +1,39 @@
+import heapq
+
+class PriorityQueue:
+    def __init__(self):
+        self._queue = []
+        self._index = 0  # 这个_index是为了保存插入顺序
+
+    def push(self, item, priority):
+        # 如果两个有着相同优先级的元素( foo 和 grok )，pop操作按照它们被插入到队列的顺序返回的。
+        heapq.heappush(self._queue, (-priority, self._index, item))  # 这个_index是为了保存插入顺序
+        self._index += 1
+
+    def pop(self):
+        return heapq.heappop(self._queue)
+
+class Item:
+    def __init__(self, name):
+        self.name = name
+    def __repr__(self):
+        return 'Item({!r})'.format(self.name)
+
+q = PriorityQueue()
+q.push(Item('foo'), 1)
+q.push(Item('fox'), 1)
+q.push(Item('fox'), 1)
+q.push(Item('fox'), 1)
+q.push(Item('fox'), 1)
+
+print(q.pop())
+print(q.pop())
+print(q.pop())
+print(q.pop())
+print(q.pop())
+
+q.push(Item('fox'), 1)
+
+print(q.pop())
+
+

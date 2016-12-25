@@ -1,0 +1,21 @@
+import random
+
+def use_context(context={}):
+    context.update({random.random():4})
+    print(context)
+
+use_context()
+use_context()
+
+
+# 建议使用
+def promise_use_context(context=None):
+    if context is None:
+        context = {}
+    context.update({random.random():4})
+    print(context)
+
+promise_use_context()
+promise_use_context()
+
+print(dict(x=1,y=2))

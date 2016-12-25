@@ -1,0 +1,18 @@
+import os
+x=5
+ret = os.fork()
+ret2 = os.fork()
+if ret == 0 and ret2 == 0:                   # child code
+    print 'child-child', ret, ret2
+    x = x+100
+elif ret == 0 and ret2 != 0:
+    print 'child', ret, ret2
+    x = x+10
+    # print x
+elif ret != 0 and ret2 == 0:                          # parent code
+    print 'father-child', ret, ret2
+    x = x/10.0
+    print x
+else:
+    print 'father', ret, ret2
+    print x

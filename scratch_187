@@ -1,0 +1,27 @@
+from collections import OrderedDict
+
+d = OrderedDict()
+d['foo'] = 1
+d['bar'] = 2
+d['spam'] = 3
+d['grok'] = 4
+# Outputs "foo 1", "bar 2", "spam 3", "grok 4"
+for key in d:
+    print(key, d[key])
+
+print('顺序json化')
+import json
+print(json.dumps(d))
+
+print('*'*10)
+d = {}
+d['foo'] = 1
+d['bar'] = 2
+d['spam'] = 3
+d['grok'] = 4
+# Outputs random
+for key in d:
+    print(key, d[key])
+
+print('随机json化')
+print(json.dumps(d))

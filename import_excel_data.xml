@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- 安装时能够产生若干导入模版数据 -->
+        <function model="import.excel.data" name="prepare_data"/>
+    </data>
+</openerp>

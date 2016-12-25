@@ -1,0 +1,39 @@
+from random import choice
+
+class RandSeq:
+    def __init__(self, seq):
+        self.data = seq
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        return choice(self.data)
+
+# for eachItem in RandSeq(('a', 'b', 'c')):
+#     print eachItem
+
+
+class AnyIter:
+    def __init__(self, data, safe=False):
+        self.safe = safe
+        self.iter = iter(data)
+
+    def __iter__(self):
+        return self
+
+    def next(self, howmany=1):
+        retval = []
+        for eachItem in range(howmany):
+            try:
+                retval.append(self.iter.next())
+            except StopIteration:
+                if self.safe:
+                    break
+                else:
+                    raise
+        return retval
+
+a = AnyIter(range(20), True)
+print a.next(19)
+print a.next(5)

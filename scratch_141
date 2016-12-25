@@ -1,0 +1,67 @@
+#!/usr/bin/env python
+
+# class WrapMe(object):
+#     def __init__(self, obj):
+#         self.__data = obj
+#     def get(self):
+#         return self.__data
+#     def __str__(self):
+#         return str(self.__data)
+#     def __getattr__(self, attr):
+#         return getattr(self.__data, attr)
+#
+# wrappedComplex = WrapMe(3.5+4.2j)
+#
+#
+# wrappedList = WrapMe([123, 'foo', 45.67])
+# print wrappedList.__getitem__(1)
+# try:
+#     print wrappedList[1]
+# except TypeError, e:
+#     print e
+# print wrappedList.get()[1]
+#
+# f = WrapMe(open('/Users/thomas_young/Documents/eroad_project/ehr/start'))
+# print f
+
+
+from time import time, ctime
+
+class TimedWrapMe(object):
+
+    def __init__(self, obj):
+        self.__data = obj
+        self.__ctime = self.__mtime = \
+            self.__atime = time()
+
+    def get(self):
+       self.__atime = time()
+       return self.__data
+
+    def gettimeval(self, t_type):
+        if not isinstance(t_type, str)  or t_type[0]  not in 'cma':
+            raise TypeError, "argument of 'c', 'm', or 'a' req'd"
+        print '_%s__%stime' % (self.__class__.__name__, t_type)
+        return getattr(self, '_%s__%stime' % (self.__class__.__name__, t_type[0]))
+
+    def gettimestr(self, t_type):
+        return ctime(self.gettimeval(t_type))
+
+    def set(self, obj):
+        self.__data = obj
+        self.__mtime = self.__atime = time()
+
+    def __repr__(self):                # repr()
+        self.__atime = time()
+        return 'self.__data'
+
+    def __str__(self):                 # str()
+        self.__atime = time()
+        return str(self.__data)
+
+    def __getattr__(self, attr):       # delegate
+        self.__atime = time()
+        return getattr(self.__data, attr)
+
+timeWrappedObj = TimedWrapMe(932)
+print timeWrappedObj.gettimestr('c')

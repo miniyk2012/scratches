@@ -1,0 +1,136 @@
+# -*- coding: utf-8 -*-
+
+#图的深度遍历
+
+class Node(object):
+    def __init__(self, key, *args,**kwargs):
+        self.node_key = key
+        self.node_childs = []
+        self.node_parent = None
+        self.level = 1
+
+    def createChildNode(self, key, *args, **kwargs):
+        child = Node(key)
+        child.node_parent = self
+        self.node_childs.append(child)
+        child.level = self.level+1
+        return child
+
+    def addChildNode(self, child_node, *args, **kwargs):
+        child_node.node_parent = self
+        self.node_childs.append(child_node)
+        child_node.level = self.level+1
+        return child_node
+
+    def getLevel(self):
+        if self.node_parent:
+            if self.node_parent.level:
+                return self.node_parent.level+1
+            else:
+                return 1
+        else:
+            return 1
+
+
+
+class Tree(object):
+    @staticmethod
+    def createNodeRelation(nodes, parent_key, child_key, *args, **kwargs):
+        parent_node = nodes.get(parent_key)
+        child_node = nodes.get(child_key)
+        child_node = parent_node.addChildNode(child_node)
+        # nodes.update(parent_node.addChildNode(child_node))
+
+    #深度优先
+    def visitDFS(self, ret, rootNode=None):
+        for node in rootNode.node_childs:
+            ret = self.visitDFS(ret, node)
+
+        if rootNode.getLevel()!=rootNode.level:
+            rootNode.level = rootNode.getLevel()
+
+        # print 'node key:', rootNode.node_key, ',level:', rootNode.getLevel()
+        ret.append((rootNode.getLevel(), rootNode.node_key))
+        return ret
+
+    #广度优先
+    def visitBFS(self, rootNode=None):
+        ret = []
+        waiting_visit_node = []
+        waiting_visit_node.append(rootNode)
+        while len(waiting_visit_node)>0:
+            current_node = waiting_visit_node[0]
+            waiting_visit_node.pop(0)
+            waiting_visit_node.extend(current_node.node_childs)
+            if current_node.getLevel()!=current_node.level:
+                current_node.level = current_node.getLevel()
+            # print 'node key:', current_node.node_key, ',level:', current_node.getLevel()
+            ret.append((current_node.getLevel(), current_node.node_key))
+
+        return ret
+
+if __name__ == '__main__':
+    # 已知节点的顺序的构造方法
+    n = Node('c')
+
+    n1 = n.createChildNode('c1')
+    n2 = n.createChildNode('c2')
+    n3 = n1.createChildNode('c3')
+    n4 = n3.createChildNode('c4')
+    n5 = n3.createChildNode('c5')
+
+    n6 = n2.createChildNode('c6')
+    n7 = n2.createChildNode('c7')
+    n8 = n6.createChildNode('c8')
+    n9 = Node('c9')
+    n10 = n2.createChildNode('c10')
+
+    # 未知节点顺序的构造方法如下
+    # nodes = {}
+    # n = Node(0)
+    # nodes.update({0:n})
+    # nodes.update({1:Node(1)})
+    # nodes.update({2:Node(2)})
+    # nodes.update({3:Node(3)})
+    # nodes.update({4:Node(4)})
+    # nodes.update({5:Node(5)})
+    # nodes.update({6:Node(6)})
+    # nodes.update({7:Node(7)})
+    # nodes.update({8:Node(9)})
+    # nodes.update({9:Node(9)})
+    # nodes.update({10:Node(10)})
+    #
+    #
+    # Tree.createNodeRelation(nodes, 3, 5)
+    # Tree.createNodeRelation(nodes, 1, 3)
+    # Tree.createNodeRelation(nodes, 0, 1)
+    # Tree.createNodeRelation(nodes, 0, 2)
+    #
+    #
+    result = []
+    t = Tree()
+    result = t.visitDFS(result, n)
+    print result
+#深度优先结果如下
+# node name: c4 ,level: 4
+# node name: c5 ,level: 4
+# node name: c3 ,level: 3
+# node name: c1 ,level: 2
+# node name: c8 ,level: 4
+# node name: c6 ,level: 3
+# node name: c7 ,level: 3
+# node name: c2 ,level: 2
+# node name: c ,level: 1
+
+    result = t.visitBFS(n)
+    print result
+# 广度优先，结果如下：
+# node name: c ,level: 1
+# node name: c1 ,level: 2
+# node name: c2 ,level: 2
+# node name: c3 ,level: 3
+# node name: c6 ,level: 3
+# node name: c7 ,level: 3
+# node name: c4 ,level: 4
+# node name: c5 ,level: 4
+# node name: c8 ,level: 4

@@ -1,0 +1,19 @@
+# -*- coding:utf-8 -*-
+
+import uniout
+import datetime
+
+
+start_date = '2016-09-30'
+end_date = '2016-10-30'
+
+start_date_obj = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
+end_date_obj = datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
+
+
+for i in range((end_date_obj - start_date_obj).days+1):
+    day = start_date_obj + datetime.timedelta(days=i)
+    print str(day)
+
+listnine = ['梨', '橘子', '苹果', '香蕉']
+print 'listnine list: %s' % listnine

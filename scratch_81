@@ -1,0 +1,8 @@
+from datetime import date
+
+# print date.today().replace(month=5).strftime('%m')
+# print date.today().month
+
+for i in range(12):
+    month = str(i+1) if i+1>=10 else '0'+str(i+1)
+    print month

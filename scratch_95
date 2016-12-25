@@ -1,0 +1,68 @@
+# -*- coding: utf-8 -*-
+
+# 单例模式
+print('实现方法1')
+def singleton(cls):
+    """
+    @param cls: 是一个类
+    @return:
+    """
+    print cls
+    instances = {}
+    def wrapper(*args, **kwargs):
+        print instances
+        if cls not in instances:
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
+    return wrapper
+
+@singleton
+class Foo(object):
+    pass
+
+# Foo = singleton(Foo)
+
+foo1 = Foo()
+foo2 = Foo()
+
+print foo1 is foo2  #运行结果为True
+
+
+print('实现方法2')
+print
+class Singleton(object):
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(cls, '_instance'):
+            cls._instance = super(Singleton,
+                cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+
+class Foo(Singleton):
+    pass
+
+foo1 = Foo()
+foo2 = Foo()
+
+print foo1 is foo2  #运行结果为True
+
+print('实现方法3')
+print
+class Singleton(type):
+    def __call__(cls, *args, **kwargs):
+        print cls
+        print 'call Singleton __call__'
+        if not hasattr(cls, '_instance'):
+            cls._instance = super(Singleton,
+                                  cls).__call__(*args, **kwargs)  # type中, x.__call__(...) <==> x(...),感觉有一定关系
+        return cls._instance
+
+class Foo(object):
+    __metaclass__ = Singleton
+
+    def __init__(self):
+        print 'xx'
+
+foo1 = Foo()
+foo2 = Foo()
+
+print foo1 is foo2  #运行结果为True

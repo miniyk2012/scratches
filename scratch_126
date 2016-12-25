@@ -1,0 +1,23 @@
+i = 1
+package = {}
+params = \
+{'x':5,
+ 'y':[{1:u'c'},2,3],
+ 'z':{'a':[4,5],'b':'xx'}
+}
+
+def unpack(param, package):
+    global i
+    if isinstance(param, (int, str, unicode)):
+        package.update({'p{}'.format(i):param})
+        i += 1
+        return
+    if isinstance(param, dict):
+        for eachItem in param.values():
+            unpack(eachItem, package)
+    if isinstance(param, (list, tuple)):
+        for eachItem in param:
+            unpack(eachItem, package)
+
+unpack(params, package)
+print package

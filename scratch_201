@@ -1,0 +1,10 @@
+import logging
+
+_logger = logging.getLogger('x')
+
+try:
+    1/0
+except Exception, e:
+    \pr
+    _logger.info(e)
+

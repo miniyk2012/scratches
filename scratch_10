@@ -1,0 +1,9 @@
+import  time, datetime
+start = datetime.datetime.now()
+time.sleep(1)
+complete = datetime.datetime.now()
+td = complete - start
+
+hours, remainder = divmod(td.seconds, 3600)
+minutes, seconds = divmod(remainder, 60)
+print(minutes, seconds)

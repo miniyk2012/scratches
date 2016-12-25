@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+
+# class ProtectAndHideX(object):
+#     def __init__(self, x):
+#         assert isinstance(x, int), \
+#             '"x" must be an integer!'
+#         self.__x = ~x
+#
+#     def get_x(self):
+#         return ~self.__x
+#
+#     x = property(get_x)
+#
+# inst = ProtectAndHideX(10)
+# print 'inst.x =', inst.x
+
+class HideX(object):
+    def __init__(self, x):
+        self.x = x  # 这里就调用set_x了。。。
+
+    def get_x(self):
+        return ~self.__x
+
+    def set_x(self, x):
+        assert isinstance(x, int), \
+            '"x" must be an integer!'
+        print 'xx', x
+        self.__x = ~x
+
+    x = property(get_x, set_x)
+
+inst = HideX(20)
+# print inst.x

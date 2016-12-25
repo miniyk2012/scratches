@@ -1,0 +1,3 @@
+x = 'fsdasfda'
+print x.replace('f', 'ttt')
+print x

@@ -1,0 +1,5 @@
+FORMAT = '%Y-%m-%d'
+
+import datetime
+x = datetime.datetime.strptime("1989-01-01", FORMAT)
+print(x.isoweekday())

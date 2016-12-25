@@ -1,0 +1,57 @@
+# -*- coding: utf-8 -*-
+
+
+import re
+m = re.match('(foo)', 'foo')
+if m is not None:
+    print m.groups()
+
+m = re.match('foo', 'food on tfoohe table')
+print m.group(0)
+
+m = re.search('foo', 'seafood')
+if m is not None: print m
+print '***'
+anyend = '.end'
+m = re.match(anyend, '\nend')
+if m is not None: print m.group()
+
+m = re.match('(\w\w\w)-(\d\d\d)', 'abc-123')
+print m.group()
+print m.group(0)
+print m.group(1)
+print m.group(2)
+print m.groups()
+
+print('*'*10)
+m = re.match('(a(b))', 'ab')
+print m.group()
+print m.group(1)
+print m.group(2)
+print m.groups()
+
+print('*'*10)
+m = re.search(r'\Bthe', 'bitethe dog')
+if m is not None: print m.group()
+
+
+print "注意下面两个例子,他们的区别在于findall找所有匹配的,search只找第一个匹配的"
+print
+print re.findall('((c)ar)', 'carry the barcardi to the car')
+
+print
+m = re.search('((c)ar)', 'carry the barcardi to the car')
+if m is not None: print m.groups()
+
+print 'xxxxxx'
+s = 'This and that. this and thatkkk'
+# print re.finditer(r'(th\w+) and (th\w+)', s, re.I).next().groups()
+x = re.finditer(r'(th\w+) and (th\w+)', s, re.I)
+for _ in x:
+    print '--'
+    print _.group()
+    print _.group(1)
+    print _.group(2)
+    print _.groups()
+
+print [g.groups() for g in re.finditer(r'(th\w+) and (th\w+)', s, re.I)]

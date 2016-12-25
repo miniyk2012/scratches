@@ -1,0 +1,15 @@
+import collections, json
+# middle_table_dict = collections.defaultdict(list)
+# middle_table_dict['yangkai'].append('a')
+# middle_table_dict['yangkai'].append('b')
+
+middle_table_dict = collections.defaultdict(lambda: collections.defaultdict(list))
+
+middle_table_dict['yangkai'][1].append(5)
+middle_table_dict['yangkai'][1].append(4)
+middle_table_dict['yangkai'][2].append(5)
+
+print(middle_table_dict)
+middle_table_dict['y'][2]
+
+print json.dumps(middle_table_dict)

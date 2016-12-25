@@ -1,0 +1,9 @@
+import copy
+
+person = ['name', ['saving', 1000]]
+newPerson = copy.deepcopy(person)
+
+print [id(x) for x in person, newPerson]
+
+print [id(x) for x in person]
+print [id(x) for x in newPerson]

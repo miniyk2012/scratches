@@ -1,0 +1,17 @@
+class Rule(object):
+
+    def __init__(self, path, methods):
+        assert(isinstance(path, str))
+        assert(isinstance(methods, list))
+        self.path = path
+        self.methods = [method.upper() for method in methods]
+
+    def __hash__(self):
+        return hash((self.path, str(self.methods)))
+
+    def __eq__(self, other):
+        return (self.path, self.methods) == (other.path, other.methods)
+
+r1 = Rule("/index", ["GET"])
+r2 = Rule("/index", ["GET"])
+print d[r2]

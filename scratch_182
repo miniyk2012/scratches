@@ -1,0 +1,42 @@
+record = ('Dave', 'dave@example.com', '773-555-1212', '847-555-1212')
+name, email, *phone_numbers = record
+print(name)
+print(email)
+print(phone_numbers)
+
+
+*trailing, current = [10, 8, 7, 1, 9, 5, 10, 3]  # 模式匹配
+print(trailing)
+print(*trailing)  # unpack
+
+print('*'*10)
+records = [
+    ('foo', 1, 2),
+    ('bar', 'hello'),
+    ('foo', 3, 4),
+]
+
+def do_foo(*args):  # 模式匹配
+    print('foo', *args)
+
+def do_bar(s):
+    print('bar', s)
+
+for tag, *args in records:  # 模式匹配
+    if tag == 'foo':
+        do_foo(*args)  # unpack
+    elif tag == 'bar':
+        do_bar(*args)
+
+line = 'nobody:*:-2:-2:Unprivileged User:/var/empty:/usr/bin/false'
+uname, *fields, homedir, sh = line.split(':')
+print(fields)
+
+print('*'*10)
+items = [1, 10, 7, 4, 5, 9]
+def sum(items):
+    head, *tail = items
+    print(tail)
+    return head + sum(tail) if tail else head
+
+print(sum(items))

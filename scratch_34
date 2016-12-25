@@ -1,0 +1,7 @@
+import re
+
+hours = 1
+minutes = 9
+seconds = 2
+
+print("%sf:%sf:%s" % (, minutes, seconds))

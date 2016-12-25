@@ -1,0 +1,28 @@
+def f1():
+    x = y = z = 2
+    def f2():
+        y = z = 3
+
+        def f3():
+            z = 3
+            print '%#0x,%#0x,%#0x'%(id(x),id(y),id(z))
+        f3()
+        clo = f3.func_closure
+        if clo:
+            print 'f3', [str(c) for c in clo]
+    f2()
+    clo = f2.func_closure
+    if clo:
+        print 'f2', [str(c) for c in clo]
+
+f1()
+
+x = 10
+def foo():
+    y = 5
+    bar = lambda :x+y
+    print bar()
+    y = 8
+    print bar()
+
+foo()

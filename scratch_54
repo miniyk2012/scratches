@@ -1,0 +1,3 @@
+x = {'1':1,'2':2}
+y = {x for ele in x}
+print y

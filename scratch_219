@@ -1,0 +1,6 @@
+import datetime
+
+
+today = datetime.date.today()
+three_days_ago = today - datetime.timedelta(days = 3)
+print str(three_days_ago)

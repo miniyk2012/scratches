@@ -1,0 +1,20 @@
+import re, sys
+
+authline = 'WWW-Authenticate: Basic realm="cPanel"'
+authobj = re.compile(
+    r'''(?:\s*www-authenticate\s*:)?\s*(\w*)\s+realm=['"]([^'"]+)['"]''',
+    re.IGNORECASE)
+# this regular expression is used to extract scheme and realm
+matchobj = authobj.match(authline)
+
+if not matchobj:
+    # if the authline isn't matched by the regular expression
+    # then something is wrong
+    print 'The authentication header is badly formed.'
+    print authline
+    sys.exit(1)
+
+scheme = matchobj.group(1)
+realm = matchobj.group(2)
+
+print scheme, realm

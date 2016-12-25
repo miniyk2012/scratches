@@ -1,0 +1,31 @@
+class DelegateMetaClass(type):
+    def __new__(cls, name, bases, attrs):
+        methods = attrs.pop('delegated_methods', ())
+        for m in methods:
+            def make_func(m):
+                def func(self, *args, **kwargs):
+                    return getattr(self.delegate, m)(*args, **kwargs)
+                return func
+
+            attrs[m] = make_func(m)
+        return super(DelegateMetaClass, cls).__new__(cls, name, bases, attrs)
+
+class Delegate(object):
+    __metaclass__ = DelegateMetaClass
+
+    def __init__(self, delegate):
+        self.delegate = delegate
+
+class ImmutableList(Delegate):
+    delegated_methods = ( '__contains__', '__eq__', '__getitem__', '__getslice__',
+                         '__str__', '__len__', 'index', 'count')
+
+il = ImmutableList([1,1,2,3,4,])
+print len(il)
+print il.count(1)
+
+lambdaFunc = lambda x: x * 2
+print dir(lambdaFunc)
+print type(lambdaFunc)
+print lambdaFunc.func_globals
+

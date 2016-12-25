@@ -1,0 +1,2 @@
+print type(u'a'.encode())
+print type('a')

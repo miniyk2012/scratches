@@ -1,0 +1,9 @@
+s = 'abcde'
+for i in [None] + range(-1, -len(s), -1):
+    # print i
+    print s[:i]
+
+print s[:None]
+
+print(list(s))
+print(reversed(s))

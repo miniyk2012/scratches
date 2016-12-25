@@ -1,0 +1,4 @@
+import re
+print re.findall(r'(?im)^th[\w ]+', """This line is the first,
+another line,
+that line, it's the best""")

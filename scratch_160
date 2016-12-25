@@ -1,0 +1,22 @@
+from collections import defaultdict
+
+class ormcache_counter(object):
+    """ Statistic counters for cache entries. """
+    __slots__ = ['hit', 'miss', 'err']
+
+    def __init__(self):
+        self.hit = 0
+        self.miss = 0
+        self.err = 0
+
+    @property
+    def ratio(self):
+        return 100.0 * self.hit / (self.hit + self.miss or 1)
+
+# statistic counters dictionary, maps (dbname, modelname, method) to counter
+STAT = defaultdict(ormcache_counter)
+
+print STAT
+STAT[(1,2,3)]
+print STAT
+

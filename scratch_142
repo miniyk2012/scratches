@@ -1,0 +1,22 @@
+class CapOpen(object):
+    def __init__(self, fn):
+        self.file = fn
+
+    def __str__(self):
+        return str(self.file)
+
+    def __repr__(self):
+        return 'self.file'
+
+    def write(self, line):
+        self.file.write(line.upper())
+
+    def __getattr__(self, attr):
+        return getattr(self.file, attr)
+
+f = CapOpen(open('/tmp/xxx', 'w'))
+f.write('delegation example\n')
+f.close()
+
+f2 = CapOpen(open('/tmp/xxx', 'r'))
+print f2.readline()

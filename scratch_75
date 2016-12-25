@@ -1,0 +1,4 @@
+FORMAT = '%Y-%m-%d'
+
+import datetime
+x = datetime.datetime.strptime('1990-01-01', FORMAT)

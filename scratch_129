@@ -1,0 +1,16 @@
+from functools import partial
+import Tkinter
+
+root = Tkinter.Tk()
+Mb = partial(Tkinter.Button, root, fg='yellow', bg='red')
+
+b1 = Mb(text="b1")
+b2 = Mb(text="b2")
+qb = Mb(text='q', bg='red', command=root.quit)
+b1.pack()
+b2.pack()
+qb.pack(fill=Tkinter.X, expand=True)
+
+root.title('PPP')
+root.mainloop()
+

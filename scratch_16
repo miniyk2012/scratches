@@ -1,0 +1,30 @@
+# -*- coding:utf-8 -*-
+
+# map 函数的模拟实现
+def myMap(func, iterable):
+    for arg in iterable:
+        yield func(arg)
+
+names = ["ana", "bob", "dogge"]
+
+print(map(lambda x: x.capitalize(), names)) # Python 2.7 中直接返回列表
+for name in myMap(lambda x: x.capitalize(), names):
+    print(name)
+
+print()
+# filter 函数的模拟实现
+def myFilter(func, iterable):
+    for arg in iterable:
+        if func(arg):
+            yield arg
+
+print(filter(lambda x: x % 2 == 0, range(10))) # Python 2.7 中直接返回列表
+for i in myFilter(lambda x: x % 2 == 0, range(10)):
+    print(i)
+
+from functools import partial
+
+add = lambda a, b, c: a + b + c
+add1024 = partial(add, 1024)
+
+print(add1024(1, 1))

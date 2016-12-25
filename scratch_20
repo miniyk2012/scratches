@@ -1,0 +1,6 @@
+import time, datetime
+
+x = "2016-04-01 15:52:42"
+print((time.strftime('%Y-%m-%d')))
+d = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
+print(d.strftime('%Y-%m-%d'))

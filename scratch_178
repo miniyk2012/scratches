@@ -1,0 +1,4 @@
+import datetime
+employee_hire_date = datetime.datetime.strptime('2011-12-11', "%Y-%m-%d")
+adjust_year = 5
+employee_hire_date = employee_hire_date - datetime.timedelta(days=365*adjust_year)  # 这是调整后的入职日期

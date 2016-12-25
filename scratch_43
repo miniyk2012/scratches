@@ -1,0 +1,16 @@
+import base64
+
+text = "MoreWindows - http://blog.csdn.net/morewindows?viewmode=contents ~!@#$%"
+
+# encodestring(string) and decodestring(string)
+print "------------------------------------"
+print "origin text: "
+print text
+
+base64_text = base64.encodestring(text)
+print "encode: "
+print base64_text
+
+print "decode: "
+print base64.decodestring(base64_text)
+print "------------------------------------"

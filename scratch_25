@@ -1,0 +1,59 @@
+
+
+s = '雨'
+print(type(s))
+print(s)
+print(len(s))
+print(s.encode())
+print(type(s.encode()))
+
+python = b'P'b'y' b"t" b'o' b'n'
+print(type(python))
+print(python)
+print(b"A"[0])
+print(7*16+14)
+print(b"\x24")
+
+print(bytes([65]))
+print(bytes([36,36,36])) # 记住字节类型是一个序列
+
+print('xx')
+print(bytes.fromhex("61 7b 20 7d"))
+# 逆运算
+print(b'a{ }'.hex())
+
+print(int(b'a'.hex(), base=16))
+
+print("🌎🌏".encode())
+print(b'\xf0\x9f\x8c\x8e\xf0\x9f\x8c\x8f'.decode())
+
+print(('$'.encode('utf8')))
+
+snake = '🐍'
+try:
+    snake.encode('ascii')
+except UnicodeEncodeError as err:
+    print(err)
+
+# 正确的做法应该是用 UTF-8 进行编码，因为字符串都是 UTF-8 的
+print(snake.encode()) # utf-8 by default
+
+print(b'$' == b'\x24')
+print('x',b'$'[0])
+
+print()
+print()
+def tryEncode(s, encoding="utf-8"):
+    try:
+        print(s.encode(encoding))
+    except UnicodeEncodeError as err:
+        print(err)
+
+s = "$"           # UTF-8 String
+tryEncode(s)          # 默认用 UTF-8 进行编码
+tryEncode(s, "ascii") # 尝试用 ASCII 进行编码
+
+s = "雨"          # UTF-8 String
+tryEncode(s)          # 默认用 UTF-8 进行编码
+tryEncode(s, "ascii") # 尝试用 ASCII 进行编码
+tryEncode(s, "GB2312")  # 尝试用 GB2312 进行编码

@@ -1,0 +1,6 @@
+from itertools import groupby
+
+data_two = [{'name': 'xisi', 'class': 11, 'uid': 101}, {'name': 'bran', 'class': 13, 'uid': 101}, {'name': 'land', 'class': 10, 'uid': 103}]
+data = dict([(g, list(k)) for g, k in groupby(data_two, key=lambda x: x["uid"])])
+
+print(data)

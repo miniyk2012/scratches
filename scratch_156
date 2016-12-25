@@ -1,0 +1,12 @@
+import sys
+
+prev_exit_func = getattr(sys, 'exitfunc', None)
+
+def my_exit_func(old_exit = prev_exit_func):
+    #       :
+    # perform cleanup
+    #       :
+    if old_exit is not None and callable(old_exit):
+        print 5
+        old_exit()
+

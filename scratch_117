@@ -1,0 +1,2 @@
+x,y = '5.5'.split('.')
+print x, y

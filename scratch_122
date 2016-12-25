@@ -1,0 +1,26 @@
+from interval import Interval, IntervalSet
+
+x = Interval(11,18)
+
+y = Interval(10,19)
+
+z = Interval(12, 14)
+
+leave_set = IntervalSet([x])
+work_set = IntervalSet([y]) - IntervalSet([z])
+
+real_time = leave_set & work_set
+
+for _interval in real_time:
+    print _interval.lower_bound
+    print _interval.upper_bound
+
+print real_time
+print '**'
+print real_time[0].lower_bound
+print real_time[-1].upper_bound
+
+import datetime
+
+print datetime.datetime(2016, 12, 6, 8, 0).day
+print datetime.datetime(2016, 12, 7, 8, 0).day

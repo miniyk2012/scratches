@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+
+import os
+print 'cwd:', os.getcwd()
+os.chdir('/')
+dir_path = os.path.dirname(os.path.realpath(__file__))
+print 'file:', __file__
+cwd = os.getcwd()
+print 'dir:', dir_path  # python文件目录
+print 'cwd:', cwd  # 当前工作目录,也就是在哪里写shell命令的目录
+
+
+f = os.popen('uname -a')
+data = f.readline()
+f.close()
+print data
+
+from subprocess import call, Popen, PIPE
+res = call(('cat', '/etc/asl.conf'))
+print res
+
+
+print '*'*10
+f = Popen(('uname', '-a'), stdout=PIPE).stdout
+data = f.readline()
+print data
+f.close()

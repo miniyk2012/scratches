@@ -1,0 +1,4 @@
+def float_time_2_str(float_time):
+    str_time = '%02d:%02d:00' % (
+        int(float_time), int((float_time - int(float_time)) * 60))
+    return str_time

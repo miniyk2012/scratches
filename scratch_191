@@ -1,0 +1,10 @@
+# def _get_first_location(title):
+#     return next(loc for loc, x in enumerate(title) if x)
+#
+# print _get_first_location(['', 0 ,])
+
+def is_null(r):
+    return bool(r) if r!=0 else True
+
+print any(is_null(item) for item in [''])
+

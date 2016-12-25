@@ -1,0 +1,2 @@
+import urlparse
+print urlparse.urlunparse(urlparse.urlparse('http://uat.ersoft.cn/web?debug=#menu_id=629&action=717'))

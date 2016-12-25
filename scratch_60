@@ -1,0 +1,6 @@
+x = 5
+y = 7
+try:
+    print x+y
+except:
+    print x+5

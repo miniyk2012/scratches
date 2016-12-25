@@ -1,0 +1,6 @@
+# -*- coding:utf-8 -*-
+
+from pypinyin import lazy_pinyin
+
+print(lazy_pinyin(['你好'.decode('utf8')]))  # 如果用户安装了 ``jieba`` , 将使用 ``jieba`` 对字符串进行分词处理。可以通过传入列表的方式禁用这种行为。
+

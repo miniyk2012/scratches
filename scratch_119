@@ -1,0 +1,7 @@
+try:
+    float([])
+except TypeError, diag:
+    pass
+
+print(diag)
+print type(diag)

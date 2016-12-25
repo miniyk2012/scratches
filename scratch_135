@@ -1,0 +1,37 @@
+class P(object):
+    def foo(self):
+        print 'Hi, I am P-foo()'
+
+class C(P):
+    def foo(self):
+        print 'Hi, I am C-foo()'
+
+p = P()
+c = C()
+
+
+print('*'.center(50, '+'))
+c.foo()
+C.foo(c)
+P.foo(c)
+
+class RoundFloat(float):
+    def __new__(cls, val):
+        # return float.__new__(cls, round(val, 2))
+        return super(RoundFloat, cls).__new__(cls, round(val, 2))
+
+print RoundFloat(1.2315)
+print RoundFloat(1.2355)
+
+class SortedKeyDict(dict):
+    def keys(self):
+        return sorted(super(SortedKeyDict, self).keys())
+
+
+d = SortedKeyDict((('b', 1), ('c', 2), ('a', 3)))
+print d.keys()
+print [x for x in d]
+
+
+
+

@@ -1,0 +1,25 @@
+def handler_accuracy(num, precision, round_type):
+    """
+
+    :return:
+    """
+    precision = float(precision)
+    div = int(num / precision)
+    if div < 0:
+        return 0
+    remainder = num % precision
+    if str(remainder) == '0.0':
+        return num
+    else:
+        if round_type == 'up':
+            return (div + 1) * precision
+        if round_type == 'down':
+            return div * precision
+        if round_type == 'half':
+            if remainder < precision / 2.0:
+                return div * precision
+            if remainder >= precision / 2.0:
+                return (div + 1) * precision
+
+
+print handler_accuracy(12.51, 1, 'half')

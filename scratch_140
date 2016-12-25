@@ -1,0 +1,4 @@
+import datetime as _datetime
+from datetime import datetime
+datetime_obj = datetime.strptime("2016-02-28", '%Y-%m-%d')+_datetime.timedelta(days=1)
+print datetime_obj.strftime('%Y-%m-%d')

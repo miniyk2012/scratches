@@ -1,0 +1,7 @@
+from collections import defaultdict
+
+x = defaultdict(int)
+x['x'] += 5
+x['x'] += 15
+
+print x

@@ -1,0 +1,10 @@
+# -*- coding: utf-8 -*-
+
+import re
+
+print re.sub(r'(\d{1,2})/(\d{1,2})/(\d{2}|\d{4})', r'\2/\1/\3', '2/20/1991')  # \2指第二个子组
+
+
+'a-b'  'b-a'
+
+print re.subn(r'(\w+)-(\w+)', r'\2-\1', 'aaf-bfa')

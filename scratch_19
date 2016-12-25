@@ -1,0 +1,4 @@
+# -*- coding: utf-8 -*-
+
+print( "{}次培训,{}元红包".format(5, 5))
+sorted

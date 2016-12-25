@@ -1,0 +1,9 @@
+import re
+
+avatar_url = 'http://shp.qpic.cn/bizmp/9Ycc4ku48O93VNKINz3cbZohm6HSsCFvGfBZBywRK2HwnT0CveMa7A/'
+
+def transfer_avatar_url(avatar_url):
+    replacedStr = re.sub(r'/[^/]*$', '/64', avatar_url)
+    return replacedStr
+
+print(transfer_avatar_url(avatar_url))

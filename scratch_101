@@ -1,0 +1,5 @@
+import datetime
+from dateutil.relativedelta import relativedelta
+month_first_day = datetime.date.today().replace(day=1)
+print(month_first_day)
+print(month_first_day+relativedelta(months=+1, days=-1))

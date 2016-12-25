@@ -1,0 +1,49 @@
+def my_divide1(num, divide_type, period_start_date, period_end_date, precision, round_rule, copy, datetime, precision_round, monthrange, convert=False, is_entry_convert=False, is_resignation_convert=False):
+    """
+    按天或按月拆分
+    :param num:假期额度
+    :param divide_type:拆分类型(month/day)
+    :param period_start_date:期间开始日期，datetime类型
+    :param period_end_date:期间截止日期，datetime类型
+    :param precision:精度处理的颗粒度，float类型
+    :param round_rule:精度处理的进位规则,(half/up/down)
+    :param copy:copy类
+    :param datetime:datetime类
+    :param precision_round:精度处理方法
+    :param monthrange:计算一个月的天数的方法
+    :return:返回列表，元素为字典，字典中包含三个部分，result额度，start_date,end_date表示额度有效期
+    """
+    res = []
+    divide_pieces = (period_end_date.month - period_start_date.month + 1) if divide_type == 'month' else (period_end_date - period_start_date).days + 1
+    piece_num = float(num) / 12
+    tmp_end_date = copy.copy(period_start_date) + datetime.timedelta(days=-1)
+    tmp_left_count = 0
+    end_date = period_end_date
+    for item in range(divide_pieces):
+
+        # 开始日期为上一个截止日期的后一天
+        start_date = tmp_end_date + datetime.timedelta(days=1)
+
+        if divide_type == 'month':    # 按月拆分时,结束日期为月底
+            last_day = monthrange(start_date.year, start_date.month)[1]
+            tmp_end_date = datetime.datetime(start_date.year, start_date.month, last_day)
+            if convert and tmp_end_date > period_end_date:  # 当折算档期分段时,最后一天记录会进来
+                tmp_end_date = period_end_date
+        elif divide_type == 'day':
+            tmp_end_date = start_date
+
+        # 针对按月发假的入离职折算的情况做处理
+        if divide_type == 'month' and start_date.day != 1 and item == 0 and is_entry_convert:
+            tmp_left_count += ((tmp_end_date - start_date).days +1) * piece_num / monthrange(start_date.year, start_date.month)[1]
+        elif divide_type == 'month' and item == divide_pieces-1 and is_resignation_convert:
+            tmp_left_count += ((end_date - end_date.replace(day=1)).days +1) * piece_num / monthrange(end_date.year, end_date.month)[1]
+        elif divide_type == 'month' and convert:
+            tmp_left_count += ((tmp_end_date - start_date).days+1) * piece_num / monthrange(start_date.year, start_date.month)[1]
+        else:
+            tmp_left_count += piece_num
+
+        tmp_num = precision_round(tmp_left_count, precision, round_rule)
+        tmp_left_count -= tmp_num
+
+        res.append({'result': tmp_num, 'start_date': start_date, 'end_date': end_date})
+    return res

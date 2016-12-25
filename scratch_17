@@ -1,0 +1,7 @@
+squares = (x for x in range(10) if x % 2 == 0)
+print(squares)
+
+print(next(squares))
+
+for i in squares:
+    print(i)

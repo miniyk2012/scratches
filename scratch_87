@@ -1,0 +1,16 @@
+import shutil
+
+def check_execute():
+    """
+    @return:
+    """
+    file_name = 'import_excel_data.xml'
+    copy_file_name = 'copy_import_excel_data.xml'
+    shutil.copyfile(file_name, copy_file_name)
+    import xml.etree.ElementTree as ET
+    tree = ET.parse(copy_file_name)
+    root = tree.getroot()
+    noudpate = root.find('data').attrib.get('noupdate', 0)
+    return not noudpate
+
+check_execute()

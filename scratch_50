@@ -1,0 +1,11 @@
+
+import json
+
+
+x = {(4,1):5}
+z = json.dumps(repr(x))
+print z
+x = json.loads(z)
+print type(eval(x))
+
+

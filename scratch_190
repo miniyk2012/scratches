@@ -1,0 +1,13 @@
+r = {'a':[0,0,0], 'b':[1,2,1]}
+
+
+
+def _convert_zero2null(r):
+    return {
+        key: map(lambda ele: ele if ele else '', line)
+        for key, line in r.iteritems()
+    }
+
+
+print(list(reversed([1,2,3])))
+

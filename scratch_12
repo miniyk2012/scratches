@@ -1,0 +1,4 @@
+# -*- coding: utf-8 -*-
+
+print type(('阿双方都加快了%s' %'五条').decode('utf8'))
+print('af'.decode('utf8'))

@@ -1,0 +1,37 @@
+def dconcat(sep = ":", **dic):
+    for k in dic.keys():
+        print("{}{}{}".format(k, sep, dic[k]))
+
+dconcat("~",hello = "world", python = "rocks")
+
+print(*range(5))
+print(1,2,3,4,5)
+lst = [0, 1, 2, 3]
+print(*lst)
+
+a = *range(3), # 这里的逗号不能漏掉
+print(a)
+b= 1,2,3,4,5,6,
+print(b)
+print((1,2,3))
+
+d = {"hello": "world", "python": "rocks"}
+x = {**d}
+print(x)
+print({**d}["python"])
+
+user = {'name': "Trey", 'website': "http://treyhunner.com"}
+defaults = {'name': "Anonymous User", 'page_name': "Profile Page"}
+print(user.update(defaults))
+print(user)
+
+colors = ["red", "green", "blue", "purple"]
+ratios = [0.2, 0.3, 0.1, 0.4]
+t = [0.2, 0.3, 0.1, 0.4]
+for color,ratio, te in zip(colors, ratios, t):
+    print("{}% {},{}".format(ratio * 100, color, te))
+
+def concat(*lst, sep = "/"):
+    return sep.join((str(i) for i in lst))
+
+print(concat("I", "U"))

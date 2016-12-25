@@ -1,0 +1,17 @@
+import pytz
+from datetime import datetime
+
+str_datetime = '2031-04-01 12:23:45'
+formattime = "%Y-%m-%d %H:%M:%S"
+
+zone = "Asia/Shanghai"
+timezone = pytz.timezone('Asia/Shanghai')
+datetime_tuple = datetime.strptime(str_datetime, formattime)
+local_time =  timezone.localize(datetime_tuple)
+print(local_time)
+
+utc_time = local_time.astimezone(pytz.utc)
+print(type(utc_time))
+str_utc_time = utc_time.strftime(formattime)
+print(str_utc_time)
+

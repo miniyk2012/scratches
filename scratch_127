@@ -1,0 +1,16 @@
+def fun():
+    x = 5
+    def ff():
+        print x
+    ff()
+
+fun()
+
+date_str = '2014-02-03'
+import datetime
+
+print datetime.datetime.strptime(date_str, '%Y-%m-%d')+datetime.timedelta(days=1)
+
+l = [{'x':5}, {'x':6}]
+
+print map(lambda r: r.get('x'), l)

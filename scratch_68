@@ -1,0 +1,78 @@
+import sqlite3
+
+# conn = sqlite3.connect('test.db')
+# cursor = conn.cursor()
+#
+# cursor.execute('create table user (id varchar(20) primary key, name varchar(20))')
+# cursor.execute('insert into user (id, name) values (\'3\', \'Michael\')')
+# print(cursor.rowcount)
+# 关闭cursor
+# cursor.close()
+# 提交事务
+# conn.commit()
+# 关闭连接
+# conn.close()
+
+#
+# conn = sqlite3.connect('test.db')
+# cursor = conn.cursor()
+# cursor.execute('select * from user where id in (1,2)')
+# values = cursor.fetchall()
+# print(values)
+#
+# cursor.close()
+# conn.close()
+
+
+import os, sqlite3
+
+db_file = 'test1.db'
+
+
+def init_table(db_name):
+    db_file = os.path.join(os.path.dirname(__file__), db_name)
+    if os.path.isfile(db_file):
+        os.remove(db_file)
+
+    # 初始数据:
+    conn = sqlite3.connect(db_file)
+    cursor = conn.cursor()
+    cursor.execute('create table user(id varchar(20) primary key, name varchar(20), score int)')
+    cursor.execute(r"insert into user values ('A-001', 'Adam', 95)")
+    cursor.execute(r"insert into user values ('A-002', 'Bart', 62)")
+    cursor.execute(r"insert into user values ('A-003', 'Lisa', 78)")
+    cursor.close()
+
+    """
+    有个小问题，conn.commit()这句到底干嘛的，官方文档说如果不运行这句，在其他数据库连接里面，刚才的数据库操作就不可见。
+    意思是不运行这句数据库操作就没有写入吗？？？这里我是同一个数据库连接所以不影响结果？？？
+
+    解答:
+    如果有写操作的话就要用conn.commit(),这句代码是说在关闭连接前保存对数据库的修改，
+    如果只是读操作的话就没有必要用这句话了。你的代码在建表插入后conn并没有关闭，你可以理解为数据还在缓存中，
+    所以你后面的查询操作就可以查到，如果你在查询之前关闭连接而且没有写conn.commit()的话，后面再建立连接查询是查不到的，
+    因为你之前插入的数据没有保存。
+    """
+    conn.commit()
+    conn.close()
+
+
+def get_score_in(low, high):
+    ' 返回指定分数区间的名字，按分数从低到高排序 '
+    conn = sqlite3.connect(db_file)
+    cursor = conn.cursor()
+    cursor.execute(r'select name from user where score>=? and score<=? order by score', (low, high))
+    values = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return [x[0] for x in values]
+
+
+init_table(db_file)
+# 测试:
+assert get_score_in(80, 95) == ['Adam'], get_score_in(80, 95)
+assert get_score_in(60, 80) == ['Bart', 'Lisa'], get_score_in(60, 80)
+assert get_score_in(60, 100) == ['Bart', 'Lisa', 'Adam'], get_score_in(60, 100)
+
+
+print('Pass')

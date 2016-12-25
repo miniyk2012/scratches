@@ -1,0 +1,7 @@
+
+# -*- coding: utf-8 -*-
+import json
+x = json.dumps(repr('你好'))
+y = json.loads(x)
+print x
+print eval(y)

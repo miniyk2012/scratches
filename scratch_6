@@ -1,0 +1,14 @@
+# -*- coding:utf-8 -*-
+import requests
+import json
+
+pqyload = {
+    "address": "",
+    "output": "JSON",
+    "key": "16dcb4cf7033dde9766260d047c40701",
+    "city": "长春市",
+}
+r = requests.get('http://restapi.amap.com/v3/geocode/geo', params = pqyload)
+# print(r.url)
+print(r.json())
+print(r.json().get('geocodes')[0].get('location'))

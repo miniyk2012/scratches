@@ -1,0 +1,32 @@
+# -*- coding:utf-8 -*-
+
+from pypinyin import pinyin, lazy_pinyin
+import pypinyin
+
+print(''.join(lazy_pinyin(['中心'.decode('utf8')])))
+
+import re
+source = "s2f程序员杂志一2d3程序员杂志二2d3程序员杂志三2d3程序员杂志四2d3"
+temp = source.decode('utf8')
+xx=u"([\u4e00-\u9fa5]+)"
+pattern = re.compile(xx)
+results =  pattern.findall(temp)
+for result in results :
+  print type(result)
+
+s1 = u'任吉'
+s2 = u'renji'
+s3 = u'18795858082'
+s4 = u'江城店'
+search_str = u'店'
+strPattern = '.*'+'.*'.join(search_str)+'.*' if search_str else '^$'
+print(strPattern)
+pattern = re.compile(strPattern, re.I)
+if pattern.match(s1) or pattern.match(s2) or pattern.match(s3) or pattern.match(s4):
+    print('OK')
+else:
+    print("Sorry")
+
+print(sorted([11,5,6]))
+
+

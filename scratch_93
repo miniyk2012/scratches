@@ -1,0 +1,9 @@
+import re
+m = re.search(r'\\[rtfvn]', r'Hello world!\n')   # 这里查找的是\\n这样的字符串
+
+print(len('\n'))
+print(len(r'\n'))
+if m is not None:
+    print(m)
+    print(m.group())
+    print(repr(m.group()))

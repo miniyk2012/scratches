@@ -1,0 +1,19 @@
+import contextlib, sys, time
+@contextlib.contextmanager
+def BlockTimer(label='Block'):
+    if sys.platform == "win32": timerFunc = time.clock
+    else: timerFunc = time.time
+    startTime = timerFunc()
+    try:
+        yield
+    finally:
+        endTime = timerFunc()
+        print '%s =>' %label,
+        print 'Time Elasped: %.3f msec.' \
+               %((endTime-startTime)*1000.0)
+
+x = [{'code':i, 'value':10} for i in range(100)]
+print x
+t = {}
+with BlockTimer():
+    map(lambda x: t.update({x['code']:x}), x)
