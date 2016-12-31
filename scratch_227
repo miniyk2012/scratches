@@ -1,0 +1,65 @@
+# -*- coding: utf-8 -*-
+
+class Float(object):
+    def __init__(self, name):
+        self.name = name
+        self.default = 0.0
+    def __get__(self, instance, owner):
+        print(self)
+        private_name = "_{}__{}".format(instance.__class__.__name__, self.name)
+        if private_name not in instance.__dict__:
+            instance.__dict__[private_name] = self.default
+        return instance.__dict__[private_name]
+    def __set__(self, instance, value):
+        # 检测类型
+        if type(value) is not float:
+            msg = "{} ({}) is not a float number".format(self.name, value)
+            raise ValueError(msg)
+        # 将对象的相应属性进行赋值，注意这里我使用了`mangled name`用来进行私有化处理
+        private_name = "_{}__{}".format(instance.__class__.__name__, self.name)
+        instance.__dict__[private_name] = value
+
+class KineticModel(object):
+    # 设置temperature为类属性
+    temperature = Float("temperature")
+
+m1 = KineticModel()
+m1.temperature = 5.0
+print(m1.temperature)
+
+m2 = KineticModel()
+m2.temperature = 10.0
+print(m2.temperature)
+
+m3 = KineticModel()
+print(m3.temperature)
+
+
+class Height(object):
+
+    def __init__(self, name):
+        self.name = name
+
+    def __set__(self, instance, value):
+        instance.__dict__['private_{}'.format(self.name)] = value
+
+    def __get__(self, instance, owner):
+        return instance.__dict__.get('private_{}'.format(self.name))
+
+class Stu(object):
+
+    height = Height('height')
+
+
+s1 = Stu()
+s1.height = 10
+print(s1.height)
+print(s1.__dict__)
+
+s2 = Stu()
+s2.height = 11
+print(s2.height)
+print(s2.__dict__)
+
+
+
