@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>自适应显示多个点标记</title>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <style>
+        .info-tip {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 12px;
+            background-color: #fff;
+            height: 35px;
+            text-align: left;
+        }
+    </style>
+    <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="http://webapi.amap.com/maps?v=1.3&key=您申请的key值"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<div class="button-group">
+    <input id="setFitView" class="button" type="button" value="地图自适应显示"/>
+</div>
+<div class="info-tip">
+    <div id="centerCoord"></div>
+    <div id="tips"></div>
+</div>
+<script>
+    var map = new AMap.Map('container', {
+        resizeEnable: true,
+        center: [116.397428, 39.90923],
+        zoom: 13
+    });    
+    map.clearMap();  // 清除地图覆盖物
+     var long = [
+119.930491,
+119.931951,
+119.938989,
+119.944267,
+119.945126,
+119.936585,
+119.93607,
+119.940534,
+119.928603,
+119.924355,
+119.945168,
+119.948387,
+119.936929,
+119.928174,
+119.938517,
+119.942293,
+119.948301,]
+        lat = [
+31.741015,
+31.7393,
+31.73638,
+31.739555,
+31.736416,
+31.734044,
+31.728751,
+31.733861,
+31.737402,
+31.732584,
+31.729262,
+31.738935,
+31.741927,
+31.729956,
+31.72762,
+31.726853,
+31.731343,]
+    icon = 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png'
+    markers = []
+    for(var i=0;i<long.length;i++){
+        markers.push({icon:icon, position: [long[i], lat[i]]})
+    }
+  markers.push({icon: 'http://img.gpsspg.com/img/marker.png', position:[ 119.93908759, 31.73299028])})
+    // 添加一些分布不均的点到地图上,地图上添加三个点标记，作为参照
+    markers.forEach(function(marker) {
+        new AMap.Marker({
+            map: map,
+            icon: marker.icon,
+            position: [marker.position[0], marker.position[1]],
+            offset: new AMap.Pixel(-12, -36)
+        });
+    });
+    var center = map.getCenter();
+    var centerText = '当前中心点坐标：' + center.getLng() + ',' + center.getLat();
+    document.getElementById('centerCoord').innerHTML = centerText;
+    document.getElementById('tips').innerHTML = '成功添加三个点标记，其中有两个在当前地图视野外！';
+
+    // 添加事件监听, 使地图自适应显示到合适的范围
+    AMap.event.addDomListener(document.getElementById('setFitView'), 'click', function() {
+        var newCenter = map.setFitView();
+        document.getElementById('centerCoord').innerHTML = '当前中心点坐标：' + newCenter.getCenter();
+        document.getElementById('tips').innerHTML = '通过setFitView，地图自适应显示到合适的范围内,点标记已全部显示在视野中！';
+    });
+</script>
+</body>
+</html>
